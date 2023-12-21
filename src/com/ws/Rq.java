@@ -3,17 +3,20 @@ package com.ws;
 import java.util.HashMap;
 import java.util.Map;
 
-// Rq == Request(요청)
 public class Rq {
 	private String actionCode;
 	private Map<String, String> params;
 
 	public Rq(String cmd) {
 		String[] cmdBits = cmd.split("\\?", 2);
-
+		
 		actionCode = cmdBits[0];
 
 		params = new HashMap<>();
+
+		if (cmdBits.length == 1) {
+			return;
+		}
 
 		String[] paramBits = cmdBits[1].split("&");
 
@@ -24,7 +27,6 @@ public class Rq {
 			params.put(key, value);
 		}
 	}
-
 	public String getActionCode() {
 		return actionCode;
 	}
@@ -32,5 +34,4 @@ public class Rq {
 	public String getParam(String name) {
 		return params.get(name);
 	}
-
 }
