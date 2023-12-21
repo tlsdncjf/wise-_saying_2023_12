@@ -13,12 +13,17 @@ public class Rq {
 		actionCode = cmdBits[0];
 
 		params = new HashMap<>();
+		
+		if (cmdBits.length == 1) {
+			return;
+		}
+			
 
 		String[] paramBits = cmdBits[1].split("&");
 
 		for (String paramStr : paramBits) {
 			String[] paramStrBits = paramStr.split("=", 2);
-			if (paramBits.length == 1) {
+			if (paramStrBits.length == 1) {
 				continue;
 			}
 			String key = paramStrBits[0];
