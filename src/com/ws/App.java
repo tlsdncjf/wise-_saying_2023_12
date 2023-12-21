@@ -1,32 +1,23 @@
 package com.ws;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import com.ws.system.controller.SystemController;
 import com.ws.wiseSaying.controller.WiseSayingController;
-import com.ws.wiseSaying.entity.WiseSaying;
 
 public class App {
-	private Scanner sc;
 
-	public App(Scanner sc) {
-		this.sc = sc;
+	public App() {
+
 	}
 
 	public void run() {
 		System.out.println("== 명언 앱 실행 ==");
 
 		SystemController systemController = new SystemController();
-		WiseSayingController wiseSayingController = new WiseSayingController(sc);
-
-		int lastId = 0;
-		List<WiseSaying> wiseSayings = new ArrayList<>();
+		WiseSayingController wiseSayingController = new WiseSayingController();
 
 		while (true) {
 			System.out.print("명령어 ) ");
-			String cmd = sc.nextLine().trim();
+			String cmd = Container.getScanner().nextLine().trim();
 
 			if (cmd.equals("종료")) {
 				systemController.exit();
