@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.ws.system.controller.SystemController;
+import com.ws.wiseSaying.controller.WiseSayingController;
 import com.ws.wiseSaying.entity.WiseSaying;
 
 public class App {
@@ -16,6 +18,9 @@ public class App {
 	public void run() {
 		System.out.println("== 명언 앱 실행 ==");
 
+		SystemController systemController = new SystemController();
+		WiseSayingController wiseSayingController = new WiseSayingController(sc);
+
 		int lastId = 0;
 		List<WiseSaying> wiseSayings = new ArrayList<>();
 
@@ -24,32 +29,12 @@ public class App {
 			String cmd = sc.nextLine().trim();
 
 			if (cmd.equals("종료")) {
+				systemController.exit();
 				break;
 			} else if (cmd.equals("등록")) {
-				int id = lastId + 1;
-				System.out.print("명언 : ");
-				String content = sc.nextLine().trim();
-				System.out.print("작가 : ");
-				String author = sc.nextLine().trim();
-
-				WiseSaying wiseSaying = new WiseSaying(id, content, author);
-				wiseSayings.add(wiseSaying);
-
-				System.out.printf("%d번 명언이 등록되었습니다.\n", id);
-				lastId++;// 마지막 번호 증가
-
+				wiseSayingController.write();
 			} else if (cmd.equals("목록")) {
-				if (wiseSayings.size() == 0) {
-					System.out.println("등록 된 명언이 없어");
-				} else {
-					System.out.println("번호 / 작가 / 명언");
-					System.out.println("=".repeat(20));
-
-					for (int i = wiseSayings.size() - 1; i >= 0; i--) {
-						WiseSaying ws = wiseSayings.get(i);
-						System.out.printf("%d / %s / %s\n", ws.getId(), ws.getContent(), ws.getAuthor());
-					}
-				}
+				wiseSayingController.list();
 			} else {
 				System.out.println("존재하지 않는 명령어입니다");
 			}
