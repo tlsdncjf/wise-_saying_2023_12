@@ -1,3 +1,6 @@
+package com.ws;
+
+
 import java.util.Scanner;
 
 public class Main {
