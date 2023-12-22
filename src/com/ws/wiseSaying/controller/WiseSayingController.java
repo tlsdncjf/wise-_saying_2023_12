@@ -1,19 +1,17 @@
 package com.ws.wiseSaying.controller;
 
-import com.ws.Container;
 import com.ws.Rq;
 import com.ws.wiseSaying.servise.WiseSayingService;
 
 public class WiseSayingController {
 	private WiseSayingService wiseSayingService;
+	
+	public WiseSayingController() {
+		wiseSayingService = new WiseSayingService();
+	}
 
-	public void write() {
-		System.out.print("명언 : ");
-		String content = Container.getScanner().nextLine().trim();
-		System.out.print("작가 : ");
-		String author = Container.getScanner().nextLine().trim();
-		int id = wiseSayingService.write(content, author);
-		System.out.printf("%d번 명언이 등록되었습니다.\n", id);
+	public void write(String content, String author) {
+		wiseSayingService.write(content, author);
 	}
 
 	public void list() {
