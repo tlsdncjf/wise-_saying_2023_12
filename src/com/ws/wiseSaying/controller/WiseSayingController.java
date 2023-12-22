@@ -10,40 +10,40 @@ public class WiseSayingController {
 	private WiseSayingService wiseSayingService;
 
 	public WiseSayingController() {
-		wiseSayingService = new WiseSayingService();
+		wiseSayingService = new WiseSayingService(); // WiseSayingService객체 생성
 	}
 
-	public void write() {
+	public void write() { // write 메서드
 		System.out.print("명언 : ");
-		String content = Container.getScanner().nextLine().trim();
+		String content = Container.getScanner().nextLine().trim(); // 컨테이너에 있는 스캐너씀
 		System.out.print("작가 : ");
-		String author = Container.getScanner().nextLine().trim();
-		int id = wiseSayingService.write(content, author);
+		String author = Container.getScanner().nextLine().trim(); // 컨테이너에 있는 스캐너씀
+		int id = wiseSayingService.write(content, author); // wiseSayingService에 있는 리턴값
 		System.out.printf("%d번 명언이 등록되었습니다.\n", id);
 	}
 
-	public void list() {
+	public void list() { // list 메서드
 		List<WiseSaying> wiseSayings = wiseSayingService.findAll();
 
 		System.out.println("번호  /  작가  /  명언  ");
-		System.out.println("=".repeat(30));
+		System.out.println("=".repeat(30)); // "="이걸 30번쓰겠다는 뜻
 
-		for (int i = wiseSayings.size() - 1; i >= 0; i--) {
-			WiseSaying ws = wiseSayings.get(i);
+		for (int i = wiseSayings.size() - 1; i >= 0; i--) { // 반복문
+			WiseSaying ws = wiseSayings.get(i); // i는 wiseSayings.size()
 
 			System.out.printf("%d  /  %s  /  %s\n", ws.getId(), ws.getAuthor(), ws.getContent());
 		}
 	}
 
-	public void remove(Rq rq) {
-		int id = rq.getIntParam("id", -1);
+	public void remove(Rq rq) { // remove 메서드에 rq사용
+		int id = rq.getIntParam("id", -1); // IntParam에 있는 name과 defaultValue의 값 지정
 
-		if (id == -1) {
+		if (id == -1) { // id가 -1과 참이라면 아래 출력문 출력
 			System.out.println("id(정수)를 제대로 입력해주세요");
-			return;
+			return; // 위 출력문 출력되면 다시 리턴해서 명령어 입력
 		}
 		// 입력된 id와 일치하는 명언 객체 찾기
-		WiseSaying wiseSaying = wiseSayingService.findById(id);
+		WiseSaying wiseSaying = wiseSayingService.findById(id); // 
 
 		if (wiseSaying == null) {
 			System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
@@ -57,9 +57,9 @@ public class WiseSayingController {
 	}
 
 	public void modify(Rq rq) {
-		int id = rq.getIntParam("id", -1);
+		int id = rq.getIntParam("id", -1); // IntParam에 있는 name과 defaultValue의 값 지정
 
-		if (id == -1) {
+		if (id == -1) { // id가 -1과 참이라면 아래 출력문 출력
 			System.out.println("id(정수)를 제대로 입력해주세요");
 			return;
 		}
